@@ -3,6 +3,8 @@ MapTable-Swift
 
 Mimic Find My Friends first screen behavior 
 
+[Youtube Video](http://youtu.be/GlZ38GZgJLM)
+
 ### Contact
 
 * Sebastian Gazolla Jr
