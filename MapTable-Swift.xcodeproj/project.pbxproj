@@ -10,6 +10,13 @@
 		084FA4EF1979627B006DCEAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084FA4EE1979627B006DCEAE /* AppDelegate.swift */; };
 		084FA4F11979627B006DCEAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 084FA4F01979627B006DCEAE /* Images.xcassets */; };
 		084FA4FD1979627B006DCEAE /* MapTable_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084FA4FC1979627B006DCEAE /* MapTable_SwiftTests.swift */; };
+		084FA508197963D7006DCEAE /* VenuesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084FA507197963D7006DCEAE /* VenuesTableView.swift */; };
+		084FA50A19796658006DCEAE /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084FA50919796658006DCEAE /* Venue.swift */; };
+		086F81E5198D670300798D9D /* VeuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086F81E4198D670300798D9D /* VeuneDetailViewController.swift */; };
+		08D27484198818DF0009EC0E /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D27483198818DF0009EC0E /* back@2x.png */; };
+		08D27486198819750009EC0E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D27485198819750009EC0E /* MapViewController.swift */; };
+		08D2748819881B890009EC0E /* MapPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D2748719881B890009EC0E /* MapPointAnnotation.swift */; };
+		08E7EC7F1979DD4A009063EC /* TableMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E7EC7E1979DD4A009063EC /* TableMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +37,13 @@
 		084FA4F61979627B006DCEAE /* MapTable-SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MapTable-SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		084FA4FB1979627B006DCEAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		084FA4FC1979627B006DCEAE /* MapTable_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTable_SwiftTests.swift; sourceTree = "<group>"; };
+		084FA507197963D7006DCEAE /* VenuesTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenuesTableView.swift; sourceTree = "<group>"; };
+		084FA50919796658006DCEAE /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		086F81E4198D670300798D9D /* VeuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VeuneDetailViewController.swift; sourceTree = "<group>"; };
+		08D27483198818DF0009EC0E /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		08D27485198819750009EC0E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		08D2748719881B890009EC0E /* MapPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPointAnnotation.swift; sourceTree = "<group>"; };
+		08E7EC7E1979DD4A009063EC /* TableMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +85,7 @@
 		084FA4EB1979627B006DCEAE /* MapTable-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				084FA506197963AC006DCEAE /* TableMapViewController */,
 				084FA4EE1979627B006DCEAE /* AppDelegate.swift */,
 				084FA4F01979627B006DCEAE /* Images.xcassets */,
 				084FA4EC1979627B006DCEAE /* Supporting Files */,
@@ -101,6 +116,20 @@
 				084FA4FB1979627B006DCEAE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		084FA506197963AC006DCEAE /* TableMapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				08D27485198819750009EC0E /* MapViewController.swift */,
+				08D2748719881B890009EC0E /* MapPointAnnotation.swift */,
+				08D27483198818DF0009EC0E /* back@2x.png */,
+				084FA507197963D7006DCEAE /* VenuesTableView.swift */,
+				084FA50919796658006DCEAE /* Venue.swift */,
+				08E7EC7E1979DD4A009063EC /* TableMapViewController.swift */,
+				086F81E4198D670300798D9D /* VeuneDetailViewController.swift */,
+			);
+			path = TableMapViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				084FA4F11979627B006DCEAE /* Images.xcassets in Resources */,
+				08D27484198818DF0009EC0E /* back@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +230,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08E7EC7F1979DD4A009063EC /* TableMapViewController.swift in Sources */,
 				084FA4EF1979627B006DCEAE /* AppDelegate.swift in Sources */,
+				084FA50A19796658006DCEAE /* Venue.swift in Sources */,
+				08D27486198819750009EC0E /* MapViewController.swift in Sources */,
+				08D2748819881B890009EC0E /* MapPointAnnotation.swift in Sources */,
+				084FA508197963D7006DCEAE /* VenuesTableView.swift in Sources */,
+				086F81E5198D670300798D9D /* VeuneDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +411,7 @@
 				084FA5021979627B006DCEAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		084FA5031979627B006DCEAE /* Build configuration list for PBXNativeTarget "MapTable-SwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -383,6 +420,7 @@
 				084FA5051979627B006DCEAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
