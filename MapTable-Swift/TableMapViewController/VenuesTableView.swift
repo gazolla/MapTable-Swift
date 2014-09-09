@@ -23,8 +23,8 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
     }
     
     func loadVenues(array: [Venue]) {
-       // self.venues = array
-       // tableView.reloadData()
+        self.venues = array
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
         let cellId = "cell"
         var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as UITableViewCell!
         
-        if (cell != nil) {
+        if (cell == nil) {
             cell = UITableViewCell(style:UITableViewCellStyle.Subtitle, reuseIdentifier: cellId)
             cell.selectionStyle = UITableViewCellSelectionStyle.None
         }
