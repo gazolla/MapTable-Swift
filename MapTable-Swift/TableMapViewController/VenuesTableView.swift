@@ -28,16 +28,16 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
     }
     
     override func viewDidLoad() {
-        self.tableView!.delegate = self
-        self.tableView!.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return self.venues.count as Int
     }
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell!
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cellId = "cell"
         var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as UITableViewCell!
@@ -48,16 +48,16 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
         }
         
         var venue = self.venues[indexPath.row] as Venue
-        cell.textLabel.text = venue.name
+        cell.textLabel!.text = venue.name
         cell.detailTextLabel!.text = venue.categoryName
         return cell
     }
     
    
-    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println(indexPath.row)
-        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell
-        println(cell.textLabel.text)
+        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell?
+        println(cell?.textLabel?.text)
         NSNotificationCenter.defaultCenter().postNotificationName("mapViewTapped", object: nil)
         let venue:Venue = self.venues[indexPath.row] as Venue
         NSNotificationCenter.defaultCenter().postNotificationName("selectAnnotation", object: venue)
