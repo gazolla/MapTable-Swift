@@ -94,9 +94,10 @@ class TableMapViewController: UIViewController {
                     self.navigationItem.leftBarButtonItem = nil
                     self.bigMap = false
                     
-                    let selectedAnnotations = self.mapView!.map!.selectedAnnotations as [MapPointAnnotation]
-                    for annotation in selectedAnnotations {
-                        self.mapView!.map!.deselectAnnotation(annotation, animated: true)
+                    if let selectedAnnotations = self.mapView!.map!.selectedAnnotations as? [MapPointAnnotation]{
+                        for annotation in selectedAnnotations {
+                            self.mapView!.map!.deselectAnnotation(annotation, animated: true)
+                        }
                     }
                 })
         }
