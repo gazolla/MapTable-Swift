@@ -4,6 +4,8 @@ MapTable-Swift
 Mimic Find My Friends first screen behavior 
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/GlZ38GZgJLM/0.jpg)](https://www.youtube.com/watch?v=GlZ38GZgJLM)
+
+
 [Youtube Video](http://youtu.be/GlZ38GZgJLM)
 
 ### Contact
