@@ -65,7 +65,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     func selectAnnotation(notification :NSNotification)  {
-        let v = notification.object as Venue
+        let v = notification.object as! Venue
         var point:MKPointAnnotation = venuePoints[v.ident]!
         map!.selectAnnotation(point, animated: true)
     }
@@ -93,7 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             rightButton.titleForState(UIControlState.Normal)
             
           rightButton.addTarget(self, action: "rightButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-            pinView!.rightCalloutAccessoryView = rightButton as UIView
+            pinView!.rightCalloutAccessoryView = rightButton as! UIView
    
         }
         else {

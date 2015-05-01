@@ -6,12 +6,14 @@
 //  Copyright (c) 2014 Gazolla. All rights reserved.
 //
 
-import UIkit
+import UIKit
 
 class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDataSource {
     
     var venues: [Venue] = []
     var rightButton:UIButton?
+    let cellId = "cell"
+
     
      
     convenience init(frame:CGRect){
@@ -20,6 +22,7 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
         self.view.frame = frame
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellId)
     }
     
     func loadVenues(array: [Venue]) {
@@ -28,8 +31,8 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
     }
     
     override func viewDidLoad() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        super.viewDidLoad()
+        
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -39,17 +42,12 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cellId = "cell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as UITableViewCell!
-        
-        if (cell == nil) {
-            cell = UITableViewCell(style:UITableViewCellStyle.Subtitle, reuseIdentifier: cellId)
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellId, forIndexPath: indexPath) as! UITableViewCell
         
         var venue = self.venues[indexPath.row] as Venue
         cell.textLabel!.text = venue.name
-        cell.detailTextLabel!.text = venue.categoryName
+        println("venue category: \(venue.categoryName)")
+    //    cell.detailTextLabel!.text = venue.categoryName
         return cell
     }
     
