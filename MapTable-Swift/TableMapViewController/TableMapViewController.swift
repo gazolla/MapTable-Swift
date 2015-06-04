@@ -33,6 +33,7 @@ class TableMapViewController: UIViewController {
     var mapView:MapViewController?
     var tapFirstView:UIGestureRecognizer?
     var bigMap = false
+    var detailVenue:VenueDetailViewController?
 
     
      convenience init(frame:CGRect){
@@ -54,6 +55,8 @@ class TableMapViewController: UIViewController {
         
         tableController = VenuesTableView(frame: CGRectMake(0.0, halfHeight!, width!, halfHeight!))
         view.addSubview(tableController!.view)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToDetail:", name: "navigateToDetail", object: nil)
         
         
     }
@@ -110,6 +113,22 @@ class TableMapViewController: UIViewController {
             tableController!.loadVenues(array!)
             mapView!.loadPointsWithArray(array!)
         }
+    }
+    
+    func navigateToDetail(notification:NSNotification){
+        
+        if self.detailVenue == nil {
+            self.detailVenue = VenueDetailViewController()
+        }
+        if let venue:Venue = notification.object as? Venue {
+            self.detailVenue?.lblName?.text = venue.name
+            self.detailVenue?.lblAddress?.text = venue.address
+            self.detailVenue?.lblCity?.text = venue.city
+        } else {
+            println("no venue at TableMapController")
+        }
+        self.navigationController?.pushViewController(self.detailVenue!, animated: true)
+        
     }
     
     

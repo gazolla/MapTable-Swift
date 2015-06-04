@@ -24,7 +24,10 @@ class VenueDetailViewController: UIViewController {
 
 
     
-     override func viewDidLoad() {
+    convenience init(){
+        self.init(nibName: nil, bundle: nil)
+        
+        self.view.backgroundColor = UIColor.whiteColor()
         
         navHeight = 0.0
         width = self.view.frame.size.width
@@ -32,7 +35,7 @@ class VenueDetailViewController: UIViewController {
         height = self.view.frame.size.height
         let labelHeight = 40.0 as CGFloat
         
-        self.lblName = UILabel(frame: CGRectMake(0, 45, width!, labelHeight))
+        self.lblName = UILabel(frame: CGRectMake(0, 90, width!, labelHeight))
         self.lblName!.numberOfLines = 1
         // self.lblName!.font = UIFont (name: "Arial", size:30.0)
         self.lblName!.adjustsFontSizeToFitWidth = true
@@ -41,7 +44,7 @@ class VenueDetailViewController: UIViewController {
         self.lblName!.textColor = UIColor.blackColor()
         self.lblName!.textAlignment = NSTextAlignment.Center
         
-        self.lblAddress = UILabel(frame: CGRectMake(0, 90, width!, labelHeight))
+        self.lblAddress = UILabel(frame: CGRectMake(0, 135, width!, labelHeight))
         self.lblAddress!.numberOfLines = 1
         // self.lblAddress!.font = UIFont (name: "Arial", size:30.0)
         self.lblAddress!.adjustsFontSizeToFitWidth = true
@@ -50,7 +53,7 @@ class VenueDetailViewController: UIViewController {
         self.lblAddress!.textColor = UIColor.blackColor()
         self.lblAddress!.textAlignment = NSTextAlignment.Center
         
-        self.lblCity = UILabel(frame: CGRectMake(0, 135, width!, labelHeight))
+        self.lblCity = UILabel(frame: CGRectMake(0, 180, width!, labelHeight))
         self.lblCity!.numberOfLines = 1
         // self.lblCity!.font = UIFont (name: "Arial", size:30.0)
         self.lblCity!.adjustsFontSizeToFitWidth = true

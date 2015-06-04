@@ -14,6 +14,8 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     var venuePoints:[Int: MapPointAnnotation] = [Int:MapPointAnnotation]()
     var map:MKMapView?
     var venues: [Venue]?
+    var rightButton: UIButton?
+    var selectedVenue:Venue?
     
 
     convenience init(frame:CGRect){
@@ -64,10 +66,19 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         }
     }
     
+    // select venue from tableview
     func selectAnnotation(notification :NSNotification)  {
-        let v = notification.object as! Venue
-        var point:MKPointAnnotation = venuePoints[v.ident]!
+        self.selectedVenue = notification.object as? Venue
+        var point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
         map!.selectAnnotation(point, animated: true)
+    }
+    
+    //select venue from mapview
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        
+        let p = view.annotation as! MapPointAnnotation
+        self.selectedVenue = p.venue
+        println("\(p.venue)")
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -85,15 +96,18 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             pinView!.canShowCallout = true
             pinView!.animatesDrop = true
             pinView!.pinColor = .Purple
+        
             
+            if self.rightButton == nil {
+                self.rightButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as? UIButton
+            }
+           // let point:MapPointAnnotation = pinView!.annotation as! MapPointAnnotation
+           // println("point.venue.name = \(point.venue?.name)")
+          //  self.rightButton!.venue = point.venue
+            self.rightButton!.titleForState(UIControlState.Normal)
             
-            var rightButton: AnyObject! = UIButton.buttonWithType(UIButtonType.DetailDisclosure)
-                      //MapPointAnnotation *point = (MapPointAnnotation*)pinView.annotation;
-            //rightButton.venue = point.venue;
-            rightButton.titleForState(UIControlState.Normal)
-            
-          rightButton.addTarget(self, action: "rightButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-            pinView!.rightCalloutAccessoryView = rightButton as! UIView
+          self.rightButton!.addTarget(self, action: "rightButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+            pinView!.rightCalloutAccessoryView = self.rightButton! as UIView
    
         }
         else {
@@ -102,9 +116,18 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         
         return pinView
     }
+    
+
 
     func rightButtonTapped(sender: UIButton!){
-       
+        if let venue:Venue = selectedVenue{
+            
+            println("venue name:\(venue.name)")
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("navigateToDetail", object: venue)
+        } else {
+            println("no venue")
+        }
     }
     
     
