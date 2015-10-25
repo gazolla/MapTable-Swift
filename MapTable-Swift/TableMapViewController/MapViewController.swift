@@ -34,14 +34,14 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     func adjustRegion(aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees){
-        var latitude:CLLocationDegrees = aLatitude
-        var longitude:CLLocationDegrees = aLongitude
-        var latDelta:CLLocationDegrees = 1.0
-        var longDelta:CLLocationDegrees = 1.0
+        let latitude:CLLocationDegrees = aLatitude
+        let longitude:CLLocationDegrees = aLongitude
+        let latDelta:CLLocationDegrees = 1.0
+        let longDelta:CLLocationDegrees = 1.0
         
-        var aSpan:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta,longitudeDelta: longDelta)
-        var Center :CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-        var region:MKCoordinateRegion = MKCoordinateRegionMake(Center, aSpan)
+        let aSpan:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta,longitudeDelta: longDelta)
+        let Center :CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(Center, aSpan)
         
         self.map!.setRegion(region, animated: true)
     }
@@ -52,8 +52,8 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         
         for (var i=0; i<someVenues.count; i++) {
     
-            var point:MapPointAnnotation = MapPointAnnotation()
-            var v = someVenues[i] as Venue
+            let point:MapPointAnnotation = MapPointAnnotation()
+            let v = someVenues[i] as Venue
             point.venue = v
             let latitude = (v.lat as NSString).doubleValue
             let longitude = (v.lng as NSString).doubleValue
@@ -69,19 +69,19 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     // select venue from tableview
     func selectAnnotation(notification :NSNotification)  {
         self.selectedVenue = notification.object as? Venue
-        var point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
+        let point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
         map!.selectAnnotation(point, animated: true)
     }
     
     //select venue from mapview
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
         let p = view.annotation as! MapPointAnnotation
         self.selectedVenue = p.venue
-        println("\(p.venue)")
+        print("\(p.venue)")
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
@@ -99,7 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         
             
             if self.rightButton == nil {
-                self.rightButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as? UIButton
+                self.rightButton = UIButton(type: UIButtonType.DetailDisclosure) 
             }
            // let point:MapPointAnnotation = pinView!.annotation as! MapPointAnnotation
            // println("point.venue.name = \(point.venue?.name)")
@@ -122,11 +122,11 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     func rightButtonTapped(sender: UIButton!){
         if let venue:Venue = selectedVenue{
             
-            println("venue name:\(venue.name)")
+            print("venue name:\(venue.name)")
             
             NSNotificationCenter.defaultCenter().postNotificationName("navigateToDetail", object: venue)
         } else {
-            println("no venue")
+            print("no venue")
         }
     }
     

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.gazapps.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,6 +22,29 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UILaunchImages</key>
+	<array>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>8.0</string>
+			<key>UILaunchImageName</key>
+			<string>Default-667h</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{375, 667}</string>
+		</dict>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>8.0</string>
+			<key>UILaunchImageName</key>
+			<string>Default-736h</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{414, 736}</string>
+		</dict>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -30,28 +53,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>UILaunchImages</key>
-    <array>
-        <dict>
-            <key>UILaunchImageMinimumOSVersion</key>
-            <string>8.0</string>
-            <key>UILaunchImageName</key>
-            <string>Default-667h</string>
-            <key>UILaunchImageOrientation</key>
-            <string>Portrait</string>
-            <key>UILaunchImageSize</key>
-            <string>{375, 667}</string>
-        </dict>
-        <dict>
-            <key>UILaunchImageMinimumOSVersion</key>
-            <string>8.0</string>
-            <key>UILaunchImageName</key>
-            <string>Default-736h</string>
-            <key>UILaunchImageOrientation</key>
-            <string>Portrait</string>
-            <key>UILaunchImageSize</key>
-            <string>{414, 736}</string>
-        </dict>
-    </array>
 </dict>
 </plist>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDataSource {
+class VenuesTableView: UITableViewController {
     
     var venues: [Venue] = []
     var rightButton:UIButton?
@@ -42,20 +42,20 @@ class VenuesTableView: UITableViewController,UITableViewDelegate, UITableViewDat
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellId, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellId, forIndexPath: indexPath) 
         
-        var venue = self.venues[indexPath.row] as Venue
+        let venue = self.venues[indexPath.row] as Venue
         cell.textLabel!.text = venue.name
-        println("venue category: \(venue.categoryName)")
+        print("venue category: \(venue.categoryName)")
     //    cell.detailTextLabel!.text = venue.categoryName
         return cell
     }
     
    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println(indexPath.row)
-        var cell = self.tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell?
-        println(cell?.textLabel?.text)
+        print(indexPath.row)
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell?
+        print(cell?.textLabel?.text)
         NSNotificationCenter.defaultCenter().postNotificationName("mapViewTapped", object: nil)
         let venue:Venue = self.venues[indexPath.row] as Venue
         NSNotificationCenter.defaultCenter().postNotificationName("selectAnnotation", object: venue)

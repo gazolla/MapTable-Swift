@@ -125,7 +125,7 @@ class TableMapViewController: UIViewController {
             self.detailVenue?.lblAddress?.text = venue.address
             self.detailVenue?.lblCity?.text = venue.city
         } else {
-            println("no venue at TableMapController")
+            print("no venue at TableMapController")
         }
         self.navigationController?.pushViewController(self.detailVenue!, animated: true)
         
