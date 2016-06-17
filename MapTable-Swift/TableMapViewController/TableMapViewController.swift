@@ -45,36 +45,36 @@ class TableMapViewController: UIViewController {
         
         title = "Map & Table"
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "mapViewTapped", name: "mapViewTapped", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(TableMapViewController.mapViewTapped), name: "mapViewTapped", object: nil)
         
-        mapView = MapViewController(frame: CGRectMake(0.0, navHeight!, width!, halfHeight!))
+        mapView = MapViewController(frame: CGRect(x: 0.0, y: navHeight!, width: width!, height: halfHeight!))
       
-        tapFirstView = UITapGestureRecognizer(target: self, action: "mapViewTapped")
+        tapFirstView = UITapGestureRecognizer(target: self, action: #selector(TableMapViewController.mapViewTapped))
         mapView!.view.addGestureRecognizer(tapFirstView!)
         self.view.addSubview(self.mapView!.view)
         
-        tableController = VenuesTableView(frame: CGRectMake(0.0, halfHeight!, width!, halfHeight!))
+        tableController = VenuesTableView(frame: CGRect(x: 0.0, y: halfHeight!, width: width!, height: halfHeight!))
         view.addSubview(tableController!.view)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "navigateToDetail:", name: "navigateToDetail", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(TableMapViewController.navigateToDetail(_:)), name: "navigateToDetail", object: nil)
         
         
     }
     
     func mapViewTapped(){
         if (!bigMap){
-            UIView.animateWithDuration(0.5,
+            UIView.animate(withDuration: 0.5,
                 delay: 0,
                 usingSpringWithDamping: 0.4,
                 initialSpringVelocity: 20.0,
-                options: UIViewAnimationOptions.CurveEaseIn ,
+                options: UIViewAnimationOptions.curveEaseIn ,
                 animations: {
-                    self.mapView!.view.frame = CGRectMake(0.0, self.navHeight!, self.width!, self.height!)
-                    self.mapView!.map!.frame = CGRectMake(0.0, self.navHeight!, self.width!, self.height!)
-                    self.tableController!.view.center = CGPointMake(self.tableController!.view.center.x, self.tableController!.view.center.y+self.halfHeight!);
+                    self.mapView!.view.frame = CGRect(x: 0.0, y: self.navHeight!, width: self.width!, height: self.height!)
+                    self.mapView!.map!.frame = CGRect(x: 0.0, y: self.navHeight!, width: self.width!, height: self.height!)
+                    self.tableController!.view.center = CGPoint(x: self.tableController!.view.center.x, y: self.tableController!.view.center.y+self.halfHeight!);
                 },
                 completion:{ (Bool)  in
-                    let leftBarButtonItem:UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: UIBarButtonItemStyle.Plain, target: self, action: "reverse")
+                    let leftBarButtonItem:UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(TableMapViewController.reverse))
                     self.navigationItem.leftBarButtonItem = leftBarButtonItem
                     self.bigMap = true
                 })
@@ -83,15 +83,15 @@ class TableMapViewController: UIViewController {
     
     func reverse(){
         if bigMap {
-            UIView.animateWithDuration(0.5,
+            UIView.animate(withDuration: 0.5,
                 delay: 0,
                 usingSpringWithDamping: 0.4,
                 initialSpringVelocity: 20.0,
-                options: UIViewAnimationOptions.CurveEaseIn ,
+                options: UIViewAnimationOptions.curveEaseIn ,
                 animations: {
-                    self.mapView!.view.frame = CGRectMake(0.0, self.navHeight!, self.width!, self.halfHeight!)
-                    self.mapView!.map!.frame = CGRectMake(0.0, self.navHeight!, self.width!, self.halfHeight!)
-                    self.tableController!.view.center = CGPointMake(self.tableController!.view.center.x, self.tableController!.view.center.y-self.halfHeight!);
+                    self.mapView!.view.frame = CGRect(x: 0.0, y: self.navHeight!, width: self.width!, height: self.halfHeight!)
+                    self.mapView!.map!.frame = CGRect(x: 0.0, y: self.navHeight!, width: self.width!, height: self.halfHeight!)
+                    self.tableController!.view.center = CGPoint(x: self.tableController!.view.center.x, y: self.tableController!.view.center.y-self.halfHeight!);
                 },
                 completion:{ (Bool)  in
                     self.navigationItem.leftBarButtonItem = nil
@@ -107,7 +107,7 @@ class TableMapViewController: UIViewController {
         
     }
 
-    func setVenueCollection(array: [Venue]!) {
+    func setVenueCollection(_ array: [Venue]!) {
          if (array != nil) {
             venues = array!
             tableController!.loadVenues(array!)
@@ -115,7 +115,7 @@ class TableMapViewController: UIViewController {
         }
     }
     
-    func navigateToDetail(notification:NSNotification){
+    func navigateToDetail(_ notification:Notification){
         
         if self.detailVenue == nil {
             self.detailVenue = VenueDetailViewController()

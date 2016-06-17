@@ -27,7 +27,7 @@ class VenueDetailViewController: UIViewController {
     convenience init(){
         self.init(nibName: nil, bundle: nil)
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white()
         
         navHeight = 0.0
         width = self.view.frame.size.width
@@ -35,32 +35,32 @@ class VenueDetailViewController: UIViewController {
         height = self.view.frame.size.height
         let labelHeight = 40.0 as CGFloat
         
-        self.lblName = UILabel(frame: CGRectMake(0, 90, width!, labelHeight))
+        self.lblName = UILabel(frame: CGRect(x: 0, y: 90, width: width!, height: labelHeight))
         self.lblName!.numberOfLines = 1
         // self.lblName!.font = UIFont (name: "Arial", size:30.0)
         self.lblName!.adjustsFontSizeToFitWidth = true
         self.lblName!.clipsToBounds = true
-        self.lblName!.backgroundColor = UIColor.clearColor()
-        self.lblName!.textColor = UIColor.blackColor()
-        self.lblName!.textAlignment = NSTextAlignment.Center
+        self.lblName!.backgroundColor = UIColor.clear()
+        self.lblName!.textColor = UIColor.black()
+        self.lblName!.textAlignment = NSTextAlignment.center
         
-        self.lblAddress = UILabel(frame: CGRectMake(0, 135, width!, labelHeight))
+        self.lblAddress = UILabel(frame: CGRect(x: 0, y: 135, width: width!, height: labelHeight))
         self.lblAddress!.numberOfLines = 1
         // self.lblAddress!.font = UIFont (name: "Arial", size:30.0)
         self.lblAddress!.adjustsFontSizeToFitWidth = true
         self.lblAddress!.clipsToBounds = true
-        self.lblAddress!.backgroundColor = UIColor.clearColor()
-        self.lblAddress!.textColor = UIColor.blackColor()
-        self.lblAddress!.textAlignment = NSTextAlignment.Center
+        self.lblAddress!.backgroundColor = UIColor.clear()
+        self.lblAddress!.textColor = UIColor.black()
+        self.lblAddress!.textAlignment = NSTextAlignment.center
         
-        self.lblCity = UILabel(frame: CGRectMake(0, 180, width!, labelHeight))
+        self.lblCity = UILabel(frame: CGRect(x: 0, y: 180, width: width!, height: labelHeight))
         self.lblCity!.numberOfLines = 1
         // self.lblCity!.font = UIFont (name: "Arial", size:30.0)
         self.lblCity!.adjustsFontSizeToFitWidth = true
         self.lblCity!.clipsToBounds = true
-        self.lblCity!.backgroundColor = UIColor.clearColor()
-        self.lblCity!.textColor = UIColor.blackColor()
-        self.lblCity!.textAlignment = NSTextAlignment.Center
+        self.lblCity!.backgroundColor = UIColor.clear()
+        self.lblCity!.textColor = UIColor.black()
+        self.lblCity!.textAlignment = NSTextAlignment.center
         
         self.view.addSubview(self.lblName!)
         self.view.addSubview(self.lblAddress!)
