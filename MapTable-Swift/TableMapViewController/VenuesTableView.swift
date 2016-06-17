@@ -10,12 +10,10 @@ import UIKit
 
 class VenuesTableView: UITableViewController {
     
-    var venues: [Venue] = []
+    var venues = [Venue]()
     var rightButton:UIButton?
     let cellId = "cell"
 
-    
-     
     convenience init(frame:CGRect){
         self.init(style:.plain)
         self.title = "Plain Table"
@@ -37,7 +35,7 @@ class VenuesTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.venues.count as Int
+        return self.venues.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -47,7 +45,6 @@ class VenuesTableView: UITableViewController {
         let venue = self.venues[(indexPath as NSIndexPath).row] as Venue
         cell.textLabel!.text = venue.name
         print("venue category: \(venue.categoryName)")
-    //    cell.detailTextLabel!.text = venue.categoryName
         return cell
     }
     
