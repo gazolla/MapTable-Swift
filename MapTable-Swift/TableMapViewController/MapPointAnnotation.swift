@@ -12,8 +12,10 @@ import MapKit
 class MapPointAnnotation : MKPointAnnotation {
     
     var venue:Venue?
-    
-    
+  
+    deinit{
+        self.venue = nil
+    }
 }
 
 

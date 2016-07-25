@@ -45,4 +45,10 @@ class VenuesTableView: UITableViewController {
         let venue:Venue = self.venues[indexPath.row] as Venue
         NSNotificationCenter.defaultCenter().postNotificationName("selectAnnotation", object: venue)
     }
+    
+    deinit{
+        self.tableView.delegate = nil
+        self.tableView.dataSource = nil
+    }
+
 }

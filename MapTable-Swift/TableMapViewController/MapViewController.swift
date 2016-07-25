@@ -21,7 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         return m
     }()
     
-    lazy var rightButton: UIButton = {
+    lazy var rightButton: UIButton = { [unowned self] in
         let r = UIButton(type: UIButtonType.DetailDisclosure)
         r.titleForState(UIControlState.Normal)
         r.addTarget(self, action: #selector(MapViewController.rightButtonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -42,14 +42,21 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         
         self.view.addSubview(self.map)
         
+        initialRegion()
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        self.map.delegate = nil
+    }
+    
+    func initialRegion(){
         adjustRegion(37.3175,aLongitude: -122.0419)
     }
     
-    func adjustRegion(aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees){
+    func adjustRegion(aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees, latDelta:CLLocationDegrees = 1.0, longDelta:CLLocationDegrees = 1.0){
         let latitude:CLLocationDegrees = aLatitude
         let longitude:CLLocationDegrees = aLongitude
-        let latDelta:CLLocationDegrees = 1.0
-        let longDelta:CLLocationDegrees = 1.0
         
         let aSpan:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta,longitudeDelta: longDelta)
         let Center :CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
@@ -79,8 +86,12 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     // select venue from tableview
     func selectAnnotation(notification :NSNotification)  {
         self.selectedVenue = notification.object as? Venue
-        let point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
-        map.selectAnnotation(point, animated: true)
+       
+        if let venue = self.selectedVenue {
+            adjustRegion(venue.lat, aLongitude: venue.lng, latDelta:0.01, longDelta:0.01)
+            let point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
+            map.selectAnnotation(point, animated: true)
+        }
     }
     
     //select venue from mapview

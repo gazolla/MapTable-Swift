@@ -21,15 +21,15 @@ class TableMapViewController: UIViewController {
     var halfHeight:CGFloat { return (height - navHeight)/2}
     var firstPosition = true
     
-    lazy var tableController:VenuesTableView = {
+    lazy var tableController:VenuesTableView = { [unowned self] in
         return VenuesTableView(frame: CGRectMake(0.0, self.halfHeight, self.width, self.halfHeight))
     }()
     
-    lazy var mapView:MapViewController = {
+    lazy var mapView:MapViewController = { [unowned self] in
         return MapViewController(frame: CGRectMake(0.0, self.navHeight, self.width, self.halfHeight))
     }()
     
-    lazy var tapFirstView:UIGestureRecognizer = {
+    lazy var tapFirstView:UIGestureRecognizer = { [unowned self] in
         return UITapGestureRecognizer(target: self, action: #selector(TableMapViewController.mapViewTapped))
     }()
     
@@ -57,6 +57,10 @@ class TableMapViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableMapViewController.navigateToDetail(_:)), name: "navigateToDetail", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableMapViewController.mapViewTapped), name: "mapViewTapped", object: nil)
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func mapViewTapped(){
@@ -100,6 +104,7 @@ class TableMapViewController: UIViewController {
                                                 self.mapView.map.deselectAnnotation(annotation, animated: true)
                                             }
                                         }
+                                        self.mapView.initialRegion()
             })
         }
         
