@@ -10,61 +10,56 @@ import UIKit
 
 class VenueDetailViewController: UIViewController {
     
-    var lblName:UILabel?
-    var lblLatitude:UILabel?
-    var lblLongitude:UILabel?
-    var lblCity: UILabel?
-    var lblAddress: UILabel?
-    var lblCategoryName: UILabel?
+    lazy var lblName:UILabel = {
+        let ln = UILabel(frame: CGRect(x: 0, y: 90, width: self.width, height: self.labelHeight))
+        ln.numberOfLines = 1
+        ln.adjustsFontSizeToFitWidth = true
+        ln.clipsToBounds = true
+        ln.backgroundColor = .clear
+        ln.textColor = .black
+        ln.textAlignment = NSTextAlignment.center
+        return ln
+    }()
+    
+    lazy var lblAddress:UILabel = {
+        let la  = UILabel(frame: CGRect(x: 0, y: 135, width: self.width, height: self.labelHeight))
+        la.numberOfLines = 1
+        la.adjustsFontSizeToFitWidth = true
+        la.clipsToBounds = true
+        la.backgroundColor = .clear
+        la.textColor = .black
+        la.textAlignment = NSTextAlignment.center
+        return la
+    }()
+    
+    lazy var lblCity: UILabel = {
+        let c = UILabel(frame: CGRect(x: 0, y: 180, width: self.width, height: self.labelHeight))
+        c.numberOfLines = 1
+        c.adjustsFontSizeToFitWidth = true
+        c.clipsToBounds = true
+        c.backgroundColor = .clear
+        c.textColor = .black
+        c.textAlignment = NSTextAlignment.center
+        return c
+    }()
 
-    var navHeight:CGFloat?
-    var width:CGFloat?
-    var halfHeight:CGFloat?
-    var height:CGFloat?
+    var navHeight:CGFloat { return 0.0 }
+    var width:CGFloat { return self.view.bounds.size.width }
+    var halfHeight:CGFloat { return (self.height - self.navHeight)/2 }
+    var height:CGFloat { return self.view.bounds.size.height}
+    var labelHeight:CGFloat { return 40.0 }
 
 
     
     convenience init(){
         self.init(nibName: nil, bundle: nil)
         
-        self.view.backgroundColor = UIColor.white
-        
-        navHeight = 0.0
-        width = self.view.frame.size.width
-        halfHeight = (self.view.frame.size.height - navHeight!)/2
-        height = self.view.frame.size.height
-        let labelHeight = 40.0 as CGFloat
-        
-        self.lblName = UILabel(frame: CGRect(x: 0, y: 90, width: width!, height: labelHeight))
-        self.lblName!.numberOfLines = 1
-        // self.lblName!.font = UIFont (name: "Arial", size:30.0)
-        self.lblName!.adjustsFontSizeToFitWidth = true
-        self.lblName!.clipsToBounds = true
-        self.lblName!.backgroundColor = UIColor.clear
-        self.lblName!.textColor = UIColor.black
-        self.lblName!.textAlignment = NSTextAlignment.center
-        
-        self.lblAddress = UILabel(frame: CGRect(x: 0, y: 135, width: width!, height: labelHeight))
-        self.lblAddress!.numberOfLines = 1
-        // self.lblAddress!.font = UIFont (name: "Arial", size:30.0)
-        self.lblAddress!.adjustsFontSizeToFitWidth = true
-        self.lblAddress!.clipsToBounds = true
-        self.lblAddress!.backgroundColor = UIColor.clear
-        self.lblAddress!.textColor = UIColor.black
-        self.lblAddress!.textAlignment = NSTextAlignment.center
-        
-        self.lblCity = UILabel(frame: CGRect(x: 0, y: 180, width: width!, height: labelHeight))
-        self.lblCity!.numberOfLines = 1
-        // self.lblCity!.font = UIFont (name: "Arial", size:30.0)
-        self.lblCity!.adjustsFontSizeToFitWidth = true
-        self.lblCity!.clipsToBounds = true
-        self.lblCity!.backgroundColor = UIColor.clear
-        self.lblCity!.textColor = UIColor.black
-        self.lblCity!.textAlignment = NSTextAlignment.center
-        
-        self.view.addSubview(self.lblName!)
-        self.view.addSubview(self.lblAddress!)
-        self.view.addSubview(self.lblCity!)
+        self.view.backgroundColor = .white
+
+        self.view.addSubview(self.lblName)
+        self.view.addSubview(self.lblAddress)
+        self.view.addSubview(self.lblCity)
+
 
     }
 }

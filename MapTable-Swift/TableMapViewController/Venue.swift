@@ -9,17 +9,12 @@
 import Foundation
 
 struct Position {
-    var lat:Double?
-    var lng:Double?
-    
-    init(lat:Double, lng:Double){
-        self.lat = lat
-        self.lng = lng
-    }
-    
-    init(){
-    }
+
+    var lat:Double
+    var lng:Double
 }
+
+
 class Venue {
     
     var ident: String
