@@ -94,6 +94,7 @@ class TableMapViewController: UIViewController {
                             self.mapView.map.deselectAnnotation(annotation, animated: true)
                         }
                     }
+                    self.mapView.initialRegion()
                 })
         }
         

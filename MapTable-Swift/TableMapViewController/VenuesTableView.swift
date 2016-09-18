@@ -44,7 +44,7 @@ class VenuesTableView: UITableViewController {
         
         let venue = self.venues[(indexPath as NSIndexPath).row] as Venue
         cell.textLabel!.text = venue.name
-        print("venue category: \(venue.categoryName)")
+        print("venue category: \(venue.category)")
         return cell
     }
     

@@ -9,9 +9,9 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController{
+class MapViewController: UIViewController, MKMapViewDelegate{
     
-    var venuePoints = [Int:MapPointAnnotation]()
+    var venuePoints = [String:MapPointAnnotation]()
     var venues: [Venue]?
     var selectedVenue:Venue?
     
@@ -30,7 +30,7 @@ class MapViewController: UIViewController{
     
     var region:Position? {
         didSet {
-            adjustRegion(region!.lat!,aLongitude: region!.lng!)
+            adjustRegion(region!.lat,aLongitude: region!.lng)
         }
     }
 
@@ -38,7 +38,8 @@ class MapViewController: UIViewController{
         self.init(nibName: nil, bundle: nil)
         self.view.frame = frame
         
-        NotificationCenter.default.addObserver(self, selector:#selector(MapViewController.selectAnnotation(_:)), name: NSNotification.Name(rawValue: "selectAnnotation"), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.selectAnnotation(_:)), name: NSNotification.Name(rawValue: "selectAnnotation"), object: nil)
+        
         self.view.addSubview(self.map)
  
         initialRegion()
@@ -71,11 +72,11 @@ class MapViewController: UIViewController{
             let point:MapPointAnnotation = MapPointAnnotation()
             let v = someVenues[i] as Venue
             point.venue = v
-            let latitude = (v.lat as NSString).doubleValue
-            let longitude = (v.lng as NSString).doubleValue
+            let latitude = v.lat
+            let longitude = v.lng
             point.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
             point.title =  v.name
-            point.subtitle = v.categoryName
+            point.subtitle = v.category
             venuePoints[v.ident] = point
     
             map.addAnnotation(point)
@@ -83,7 +84,7 @@ class MapViewController: UIViewController{
     }
     
     // select venue from tableview
-    func selectAnnotation(notification :NSNotification)  {
+    func selectAnnotation(_ notification :NSNotification)  {
         self.selectedVenue = notification.object as? Venue
         
         if let venue = self.selectedVenue {
@@ -92,6 +93,7 @@ class MapViewController: UIViewController{
             map.selectAnnotation(point, animated: true)
         }
     }
+    
     func rightButtonTapped(_ sender: UIButton!){
         if let venue:Venue = selectedVenue{
             print("venue name:\(venue.name)")
