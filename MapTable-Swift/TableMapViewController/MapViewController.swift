@@ -27,6 +27,12 @@ class MapViewController: UIViewController{
         rb.addTarget(self, action: #selector(MapViewController.rightButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         return rb
     }()
+    
+    var region:Position? {
+        didSet {
+            adjustRegion(region!.lat!,aLongitude: region!.lng!)
+        }
+    }
 
     convenience init(frame:CGRect){
         self.init(nibName: nil, bundle: nil)
@@ -35,14 +41,22 @@ class MapViewController: UIViewController{
         NotificationCenter.default.addObserver(self, selector:#selector(MapViewController.selectAnnotation(_:)), name: NSNotification.Name(rawValue: "selectAnnotation"), object: nil)
         self.view.addSubview(self.map)
  
+        initialRegion()
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+        self.map.delegate = nil
+    }
+
+    
+    func initialRegion(){
         adjustRegion(37.3175,aLongitude: -122.0419)
     }
     
-    func adjustRegion(_ aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees){
+    func adjustRegion(_ aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees, latDelta:CLLocationDegrees = 1.0, longDelta:CLLocationDegrees = 1.0){
         let latitude:CLLocationDegrees = aLatitude
         let longitude:CLLocationDegrees = aLongitude
-        let latDelta:CLLocationDegrees = 1.0
-        let longDelta:CLLocationDegrees = 1.0
         
         let aSpan:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta,longitudeDelta: longDelta)
         let Center :CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
@@ -69,17 +83,18 @@ class MapViewController: UIViewController{
     }
     
     // select venue from tableview
-    func selectAnnotation(_ notification :Notification)  {
+    func selectAnnotation(notification :NSNotification)  {
         self.selectedVenue = notification.object as? Venue
-        let point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
-        map.selectAnnotation(point, animated: true)
+        
+        if let venue = self.selectedVenue {
+            adjustRegion(venue.lat, aLongitude: venue.lng, latDelta:0.01, longDelta:0.01)
+            let point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
+            map.selectAnnotation(point, animated: true)
+        }
     }
-
     func rightButtonTapped(_ sender: UIButton!){
         if let venue:Venue = selectedVenue{
-            
             print("venue name:\(venue.name)")
-            
             NotificationCenter.default.post(name: Notification.Name(rawValue: "navigateToDetail"), object: venue)
         } else {
             print("no venue")
