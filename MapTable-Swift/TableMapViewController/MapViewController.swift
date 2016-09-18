@@ -22,9 +22,9 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }()
     
     lazy var rightButton: UIButton = { [unowned self] in
-        let r = UIButton(type: UIButtonType.DetailDisclosure)
-        r.titleForState(UIControlState.Normal)
-        r.addTarget(self, action: #selector(MapViewController.rightButtonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let r = UIButton(type: UIButtonType.detailDisclosure)
+        r.title(for: UIControlState())
+        r.addTarget(self, action: #selector(MapViewController.rightButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         return r
     }()
     
@@ -38,7 +38,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         self.init(nibName: nil, bundle: nil)
         self.view.frame = frame
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(MapViewController.selectAnnotation(_:)), name: "selectAnnotation", object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(MapViewController.selectAnnotation(_:)), name: NSNotification.Name(rawValue: "selectAnnotation"), object: nil)
         
         self.view.addSubview(self.map)
         
@@ -46,7 +46,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         self.map.delegate = nil
     }
     
@@ -54,7 +54,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         adjustRegion(37.3175,aLongitude: -122.0419)
     }
     
-    func adjustRegion(aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees, latDelta:CLLocationDegrees = 1.0, longDelta:CLLocationDegrees = 1.0){
+    func adjustRegion(_ aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees, latDelta:CLLocationDegrees = 1.0, longDelta:CLLocationDegrees = 1.0){
         let latitude:CLLocationDegrees = aLatitude
         let longitude:CLLocationDegrees = aLongitude
         
@@ -65,7 +65,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         self.map.setRegion(region, animated: true)
     }
     
-    func loadPointsWithArray(someVenues:[Venue]){
+    func loadPointsWithArray(_ someVenues:[Venue]){
         map.removeAnnotations(map.annotations)
         
         for i in 0..<someVenues.count {
@@ -84,7 +84,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     // select venue from tableview
-    func selectAnnotation(notification :NSNotification)  {
+    func selectAnnotation(_ notification :Notification)  {
         self.selectedVenue = notification.object as? Venue
        
         if let venue = self.selectedVenue {
@@ -95,13 +95,13 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     //select venue from mapview
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let p = view.annotation as! MapPointAnnotation
         self.selectedVenue = p.venue
         print("\(p.venue)")
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
@@ -110,16 +110,12 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         
         let reuseId = "pin"
         
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.animatesDrop = true
-            if #available(iOS 9.0, *) {
-                pinView!.pinTintColor = .purpleColor()
-            } else {
-                pinView!.pinColor = .Purple
-            }
+            pinView!.pinColor = .purple
             pinView!.rightCalloutAccessoryView = self.rightButton as UIView
         } else {
             pinView!.annotation = annotation
@@ -128,10 +124,10 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         return pinView
     }
     
-    func rightButtonTapped(sender: UIButton!){
+    func rightButtonTapped(_ sender: UIButton!){
         if let venue:Venue = selectedVenue {
             print("venue name:\(venue.name)")
-            NSNotificationCenter.defaultCenter().postNotificationName("navigateToDetail", object: venue)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "navigateToDetail"), object: venue)
         } else {
             print("no venue")
         }

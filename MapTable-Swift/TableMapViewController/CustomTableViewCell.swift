@@ -14,12 +14,12 @@ class CustomTableViewCell: UITableViewCell {
         didSet{
             self.textLabel?.text = venue?.name
             self.detailTextLabel?.text = venue?.category
-            self.detailTextLabel?.textColor = .lightGrayColor()
+            self.detailTextLabel?.textColor = .lightGray
         }
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?){
-        super.init(style: UITableViewCellStyle.Subtitle, reuseIdentifier: reuseIdentifier)
+        super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,7 @@ class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 

@@ -22,11 +22,11 @@ class TableMapViewController: UIViewController {
     var firstPosition = true
     
     lazy var tableController:VenuesTableView = { [unowned self] in
-        return VenuesTableView(frame: CGRectMake(0.0, self.halfHeight, self.width, self.halfHeight))
+        return VenuesTableView(frame: CGRect(x: 0.0, y: self.halfHeight, width: self.width, height: self.halfHeight))
     }()
     
     lazy var mapView:MapViewController = { [unowned self] in
-        return MapViewController(frame: CGRectMake(0.0, self.navHeight, self.width, self.halfHeight))
+        return MapViewController(frame: CGRect(x: 0.0, y: self.navHeight, width: self.width, height: self.halfHeight))
     }()
     
     lazy var tapFirstView:UIGestureRecognizer = { [unowned self] in
@@ -55,28 +55,28 @@ class TableMapViewController: UIViewController {
         self.view.addSubview(self.mapView.view)
         self.view.addSubview(tableController.view)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableMapViewController.navigateToDetail(_:)), name: "navigateToDetail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableMapViewController.mapViewTapped), name: "mapViewTapped", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TableMapViewController.navigateToDetail(_:)), name: NSNotification.Name(rawValue: "navigateToDetail"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TableMapViewController.mapViewTapped), name: NSNotification.Name(rawValue: "mapViewTapped"), object: nil)
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func mapViewTapped(){
         if (!bigMap){
-            UIView.animateWithDuration(0.5,
+            UIView.animate(withDuration: 0.5,
                                        delay: 0,
                                        usingSpringWithDamping: 0.4,
                                        initialSpringVelocity: 20.0,
-                                       options: UIViewAnimationOptions.CurveEaseIn ,
+                                       options: UIViewAnimationOptions.curveEaseIn ,
                                        animations: {
-                                        self.mapView.view.frame = CGRectMake(0.0, self.navHeight, self.width, self.height)
-                                        self.mapView.map.frame = CGRectMake(0.0, self.navHeight, self.width, self.height)
-                                        self.tableController.view.center = CGPointMake(self.tableController.view.center.x, self.tableController.view.center.y+self.halfHeight);
+                                        self.mapView.view.frame = CGRect(x: 0.0, y: self.navHeight, width: self.width, height: self.height)
+                                        self.mapView.map.frame = CGRect(x: 0.0, y: self.navHeight, width: self.width, height: self.height)
+                                        self.tableController.view.center = CGPoint(x: self.tableController.view.center.x, y: self.tableController.view.center.y+self.halfHeight);
                 },
                                        completion:{ (Bool)  in
-                                        let leftBarButtonItem:UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(TableMapViewController.reverse))
+                                        let leftBarButtonItem:UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(TableMapViewController.reverse))
                                         self.navigationItem.leftBarButtonItem = leftBarButtonItem
                                         self.bigMap = true
             })
@@ -85,15 +85,15 @@ class TableMapViewController: UIViewController {
     
     func reverse(){
         if bigMap {
-            UIView.animateWithDuration(0.5,
+            UIView.animate(withDuration: 0.5,
                                        delay: 0,
                                        usingSpringWithDamping: 0.4,
                                        initialSpringVelocity: 20.0,
-                                       options: UIViewAnimationOptions.CurveEaseIn ,
+                                       options: UIViewAnimationOptions.curveEaseIn ,
                                        animations: {
-                                        self.mapView.view.frame = CGRectMake(0.0, self.navHeight, self.width, self.halfHeight)
-                                        self.mapView.map.frame = CGRectMake(0.0, self.navHeight, self.width, self.halfHeight)
-                                        self.tableController.view.center = CGPointMake(self.tableController.view.center.x, self.tableController.view.center.y-self.halfHeight);
+                                        self.mapView.view.frame = CGRect(x: 0.0, y: self.navHeight, width: self.width, height: self.halfHeight)
+                                        self.mapView.map.frame = CGRect(x: 0.0, y: self.navHeight, width: self.width, height: self.halfHeight)
+                                        self.tableController.view.center = CGPoint(x: self.tableController.view.center.x, y: self.tableController.view.center.y-self.halfHeight);
                 },
                                        completion:{ (Bool)  in
                                         self.navigationItem.leftBarButtonItem = nil
@@ -110,8 +110,8 @@ class TableMapViewController: UIViewController {
         
     }
     
-    func setVenueCollection(array: [Venue]!) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func setVenueCollection(_ array: [Venue]!) {
+        DispatchQueue.main.async {
             if let array = array {
                 self.venues = array
                 self.tableController.loadVenues(array)
@@ -120,7 +120,7 @@ class TableMapViewController: UIViewController {
         }
     }
     
-    func navigateToDetail(notification:NSNotification){
+    func navigateToDetail(_ notification:Notification){
         
         if let venue:Venue = notification.object as? Venue {
             self.detailVenue.lblName?.text = venue.name
@@ -133,15 +133,15 @@ class TableMapViewController: UIViewController {
         
     }
     
-    func loadDataErrorMessage(error:NSError){
-        dispatch_async(dispatch_get_main_queue()) {
-            let alertController = UIAlertController(title: "Error - \(error.code)", message: error.localizedDescription, preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "Ok", style: .Default, handler: { (alert:UIAlertAction) -> Void in
-                alertController.dismissViewControllerAnimated(true, completion: {})
+    func loadDataErrorMessage(_ error:NSError){
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "Error - \(error.code)", message: error.localizedDescription, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (alert:UIAlertAction) -> Void in
+                alertController.dismiss(animated: true, completion: {})
             })
             
             alertController.addAction(okAction)
-            self.presentViewController(alertController, animated: true, completion: {})
+            self.present(alertController, animated: true, completion: {})
         }
     }
     
