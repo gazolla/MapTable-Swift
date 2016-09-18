@@ -53,8 +53,8 @@ class VenuesTableView: UITableViewController {
         print((indexPath as NSIndexPath).row)
         let cell = self.tableView.cellForRow(at: indexPath) as UITableViewCell?
         print(cell?.textLabel?.text)
-        NotificationCenter.default().post(name: Notification.Name(rawValue: "mapViewTapped"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "mapViewTapped"), object: nil)
         let venue:Venue = self.venues[(indexPath as NSIndexPath).row] as Venue
-        NotificationCenter.default().post(name: Notification.Name(rawValue: "selectAnnotation"), object: venue)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "selectAnnotation"), object: venue)
     }
 }

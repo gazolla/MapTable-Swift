@@ -14,9 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.window = UIWindow(frame: UIScreen.main().bounds)
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let v = Venue(aIdent:1, aName: "Whole Foods Market", aAddress: "20955 Stevens Creek Blvd", aCity: "Cupertino", aCategoryName: "Grocery Store", aLat: "37.323551", aLng: "-122.039653")
         let v2 = Venue(aIdent:2, aName: "Buffalo Wild Wings Grill & Bar", aAddress: "1620 Saratoga Ave", aCity: "San Jose", aCategoryName: "American Restaurant", aLat: "37.2979039", aLng: "-121.988112")
@@ -35,14 +33,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         venuesArr.append(v6)
         venuesArr.append(v7)
 
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let frame =  self.window!.bounds
         
-        let vtv:TableMapViewController = TableMapViewController(frame: self.window?.frame as CGRect!)
+        let vtv:TableMapViewController = TableMapViewController(frame: frame)
         vtv.setVenueCollection(venuesArr)
         let nav:UINavigationController = UINavigationController(rootViewController: vtv)
         
         self.window!.rootViewController =  nav
         
-        self.window!.backgroundColor = UIColor.white()
+        self.window!.backgroundColor = .white
         self.window!.makeKeyAndVisible()
         return true
     }

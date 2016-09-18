@@ -47,10 +47,10 @@ class TableMapViewController: UIViewController {
 
         title = "Map & Table"
         
-        NotificationCenter.default().addObserver(self, selector: #selector(TableMapViewController.mapViewTapped), name: "mapViewTapped", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TableMapViewController.mapViewTapped), name: NSNotification.Name(rawValue: "mapViewTapped"), object: nil)
         
         
-        NotificationCenter.default().addObserver(self, selector: #selector(TableMapViewController.navigateToDetail(_:)), name: "navigateToDetail", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TableMapViewController.navigateToDetail(_:)), name: NSNotification.Name(rawValue: "navigateToDetail"), object: nil)
     }
     
     func mapViewTapped(){

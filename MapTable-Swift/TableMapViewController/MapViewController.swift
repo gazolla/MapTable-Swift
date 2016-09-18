@@ -32,7 +32,7 @@ class MapViewController: UIViewController{
         self.init(nibName: nil, bundle: nil)
         self.view.frame = frame
         
-        NotificationCenter.default().addObserver(self, selector:#selector(MapViewController.selectAnnotation(_:)), name: "selectAnnotation", object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(MapViewController.selectAnnotation(_:)), name: NSNotification.Name(rawValue: "selectAnnotation"), object: nil)
         self.view.addSubview(self.map)
  
         adjustRegion(37.3175,aLongitude: -122.0419)
@@ -80,7 +80,7 @@ class MapViewController: UIViewController{
             
             print("venue name:\(venue.name)")
             
-            NotificationCenter.default().post(name: Notification.Name(rawValue: "navigateToDetail"), object: venue)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "navigateToDetail"), object: venue)
         } else {
             print("no venue")
         }
@@ -112,7 +112,7 @@ extension MapViewController: MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.animatesDrop = true
-            pinView!.pinTintColor = .purple()
+            pinView!.pinTintColor = .purple
             pinView!.rightCalloutAccessoryView = self.rightButton as UIView
         } else {
             pinView!.annotation = annotation

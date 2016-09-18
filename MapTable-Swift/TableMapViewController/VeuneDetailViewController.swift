@@ -15,8 +15,8 @@ class VenueDetailViewController: UIViewController {
         ln.numberOfLines = 1
         ln.adjustsFontSizeToFitWidth = true
         ln.clipsToBounds = true
-        ln.backgroundColor = UIColor.clear()
-        ln.textColor = UIColor.black()
+        ln.backgroundColor = .clear
+        ln.textColor = .black
         ln.textAlignment = NSTextAlignment.center
         return ln
     }()
@@ -26,8 +26,8 @@ class VenueDetailViewController: UIViewController {
         la.numberOfLines = 1
         la.adjustsFontSizeToFitWidth = true
         la.clipsToBounds = true
-        la.backgroundColor = UIColor.clear()
-        la.textColor = UIColor.black()
+        la.backgroundColor = .clear
+        la.textColor = .black
         la.textAlignment = NSTextAlignment.center
         return la
     }()
@@ -37,8 +37,8 @@ class VenueDetailViewController: UIViewController {
         c.numberOfLines = 1
         c.adjustsFontSizeToFitWidth = true
         c.clipsToBounds = true
-        c.backgroundColor = UIColor.clear()
-        c.textColor = UIColor.black()
+        c.backgroundColor = .clear
+        c.textColor = .black
         c.textAlignment = NSTextAlignment.center
         return c
     }()
@@ -54,7 +54,7 @@ class VenueDetailViewController: UIViewController {
     convenience init(){
         self.init(nibName: nil, bundle: nil)
         
-        self.view.backgroundColor = UIColor.white()
+        self.view.backgroundColor = .white
 
         self.view.addSubview(self.lblName)
         self.view.addSubview(self.lblAddress)
