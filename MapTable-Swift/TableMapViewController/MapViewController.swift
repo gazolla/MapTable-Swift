@@ -100,11 +100,7 @@ class MapViewController: UIViewController{
             print("no venue")
         }
     }
-}
 
-
-extension MapViewController: MKMapViewDelegate {
-   
     //select venue from mapview
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
