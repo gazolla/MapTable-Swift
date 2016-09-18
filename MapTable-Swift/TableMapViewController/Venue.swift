@@ -8,22 +8,34 @@
 
 import Foundation
 
+struct Position {
+    var lat:Double?
+    var lng:Double?
+    
+    init(lat:Double, lng:Double){
+        self.lat = lat
+        self.lng = lng
+    }
+    
+    init(){
+    }
+}
 class Venue {
     
-    var ident: Int
+    var ident: String
     var name: String
-    var lat: String
-    var lng: String
+    var lat: Double
+    var lng: Double
     var city: String
     var address: String
-    var categoryName: String
+    var category: String
     
-    init(aIdent:Int, aName: String, aAddress: String,  aCity: String, aCategoryName: String, aLat: String, aLng: String){
+    init(aIdent:String, aName: String, aAddress: String,  aCity: String, aCategory: String, aLat: Double, aLng: Double){
         ident = aIdent
         name = aName
         address = aAddress
         city = aCity
-        categoryName = aCategoryName
+        category = aCategory
         lat = aLat
         lng = aLng
     }
