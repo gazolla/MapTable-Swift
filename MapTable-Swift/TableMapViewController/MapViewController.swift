@@ -59,12 +59,12 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
 
     func adjustRegion(_ aLatitude:CLLocationDegrees, aLongitude: CLLocationDegrees, latDelta:CLLocationDegrees = 1.0, longDelta:CLLocationDegrees = 1.0){
-        let latitude:CLLocationDegrees = aLatitude
-        let longitude:CLLocationDegrees = aLongitude
+        let latitude = aLatitude
+        let longitude = aLongitude
         
-        let aSpan:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta,longitudeDelta: longDelta)
-        let Center :CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(Center, aSpan)
+        let aSpan = MKCoordinateSpan(latitudeDelta: latDelta,longitudeDelta: longDelta)
+        let Center = CLLocationCoordinate2DMake(latitude, longitude)
+        let region = MKCoordinateRegionMake(Center, aSpan)
         
         self.map.setRegion(region, animated: true)
     }
@@ -112,7 +112,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let p = view.annotation as! MapPointAnnotation
         self.selectedVenue = p.venue
-        print("\(p.venue)")
+        print("\(String(describing: p.venue))")
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

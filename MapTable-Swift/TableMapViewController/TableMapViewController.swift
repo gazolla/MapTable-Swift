@@ -17,7 +17,14 @@ class TableMapViewController: UIViewController {
     var height:CGFloat { return self.view.bounds.size.height }
     
     var firstPosition = true
-    var venues = [Venue]()
+    var venues:[Venue]?{
+        didSet{
+            if venues != nil {
+                tableController.venues = venues
+                mapView.loadPointsWithArray(venues!)
+            }
+        }
+    }
     var bigMap = false
     
     lazy var mapView:MapViewController = {
@@ -102,14 +109,6 @@ class TableMapViewController: UIViewController {
         
     }
 
-    func setVenueCollection(_ array: [Venue]!) {
-         if let v = array {
-            venues = v
-            tableController.loadVenues(v)
-            mapView.loadPointsWithArray(v)
-
-        }
-    }
     
     func navigateToDetail(_ notification:Notification){
         if let venue = notification.object as? Venue {
