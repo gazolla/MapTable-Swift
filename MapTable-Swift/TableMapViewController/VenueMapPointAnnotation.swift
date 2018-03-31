@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapPointAnnotation : MKPointAnnotation {
+class VenueMapPointAnnotation : MKPointAnnotation {
     
     var venue:Venue?
   

@@ -9,14 +9,20 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate{
+protocol VenuesMapControllerDelegate {
+    func selectAnnotation(_ venue :Venue)
+}
+
+class VenuesMapController: UIViewController, MKMapViewDelegate, VenuesMapControllerDelegate{
     
-    var venuePoints = [String:MapPointAnnotation]()
+    var venuePoints = [String:VenueMapPointAnnotation]()
     var venues: [Venue]?
     var selectedVenue:Venue?
+    var delegate:MainViewControllerDelegate?
     
     lazy var map:MKMapView = {
-        let m = MKMapView(frame: self.view.bounds)
+        let m = MKMapView()
+        m.translatesAutoresizingMaskIntoConstraints = false
         m.delegate = self
         return m
     }()
@@ -24,7 +30,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     lazy var rightButton: UIButton = {
         let rb = UIButton(type: UIButtonType.detailDisclosure)
         rb.title(for: UIControlState())
-        rb.addTarget(self, action: #selector(MapViewController.rightButtonTapped(_:)), for: UIControlEvents.touchUpInside)
+        rb.addTarget(self, action: #selector(VenuesMapController.rightButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         return rb
     }()
     
@@ -35,16 +41,20 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
 
 
-    convenience init(frame:CGRect){
+    convenience init(){
         self.init(nibName: nil, bundle: nil)
-        self.view.frame = frame
-        
-         NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.selectAnnotation(_:)), name: NSNotification.Name(rawValue: "selectAnnotation"), object: nil)
-        
-        self.view.addSubview(self.map)
- 
+        self.view.addSubview(map)
 
         initialRegion()
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        let layout = self.view.layoutMarginsGuide
+        map.topAnchor.constraint(equalTo: layout.topAnchor).isActive = true
+        map.bottomAnchor.constraint(equalTo: layout.bottomAnchor).isActive = true
+        map.rightAnchor.constraint(equalTo: layout.rightAnchor).isActive = true
+        map.leftAnchor.constraint(equalTo: layout.leftAnchor).isActive = true
     }
     
     deinit{
@@ -73,7 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         map.removeAnnotations(map.annotations)
         for i in 0 ..< someVenues.count {
 
-            let point:MapPointAnnotation = MapPointAnnotation()
+            let point:VenueMapPointAnnotation = VenueMapPointAnnotation()
             let v = someVenues[i] as Venue
             point.venue = v
             let latitude = v.lat
@@ -88,21 +98,17 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     // select venue from tableview
-    func selectAnnotation(_ notification :NSNotification)  {
-        self.selectedVenue = notification.object as? Venue
-        
-
-        if let venue = self.selectedVenue {
+    func selectAnnotation(_ venue :Venue)  {
+            self.selectedVenue = venue
             adjustRegion(venue.lat, aLongitude: venue.lng, latDelta:0.01, longDelta:0.01)
-            let point:MKPointAnnotation = venuePoints[self.selectedVenue!.ident]!
+            let point:MKPointAnnotation = venuePoints[venue.ident]!
             map.selectAnnotation(point, animated: true)
-        }
     }
     
-    func rightButtonTapped(_ sender: UIButton!){
+    @objc func rightButtonTapped(_ sender: UIButton!){
         if let venue:Venue = selectedVenue{
             print("venue name:\(venue.name)")
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "navigateToDetail"), object: venue)
+            delegate?.navigateToDetail(venue)
         } else {
             print("no venue")
         }
@@ -110,7 +116,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
 
     //select venue from mapview
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let p = view.annotation as! MapPointAnnotation
+        let p = view.annotation as! VenueMapPointAnnotation
         self.selectedVenue = p.venue
         print("\(String(describing: p.venue))")
     }

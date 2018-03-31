@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let frame =  self.window!.bounds
         
-        let vtv:TableMapViewController = TableMapViewController(frame: frame)
+        let vtv:VenuesController = VenuesController()
         vtv.venues = venuesArr
         let nav:UINavigationController = UINavigationController(rootViewController: vtv)
         
